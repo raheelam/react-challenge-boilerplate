@@ -164,7 +164,7 @@ export const NotificationCard = (props) => {
         <div className="type-container">
           <p className="type">Notification</p>
           <span>{truncateText(25, "http://primer.io/hook/hgfhghuh...")}</span>
-          {status == "failed" && (
+          {status === "failed" && (
             <span style={{ color: "red" }}>5 failed attempts</span>
           )}
         </div>

@@ -1,5 +1,4 @@
 import { saveTokenToLocalStorage } from "../shared/utils/authHelper";
-import jwt_decode from "jwt-decode";
 import primer from "./axiosSetup";
 
 export const login = (
@@ -22,16 +21,5 @@ export const login = (
 };
 
 export const checkAuthState = () => {
-  //   if (localStorage.primerAccessToken) {
-  //     const decoded = jwt_decode(localStorage.primerAccessToken);
-  //     const currentTime = Date.now() / 1000;
-  //     if (decoded.exp < currentTime) {
-  //       localStorage.removeItem("primerAccessToken");
-  //       window.location.href = "/";
-  //     }
-  //     return true;
-  //   }
-
-  //   return false;
   return localStorage.primerAccessToken !== undefined;
 };

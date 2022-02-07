@@ -49,15 +49,6 @@ width: 95%;
       }
 }`;
 
-const TableContainer = styled.div`
-  padding: 0.5rem 0;
-  height: auto;
-  background: white;
-  width: 95%;
-  overflow: scroll;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0/0.1);
-`;
-
 export default function TransactionsTable({ transactions }) {
   if (transactions?.length === 0 || !transactions) {
     return <div>No transactions found.</div>;

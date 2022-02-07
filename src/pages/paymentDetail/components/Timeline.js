@@ -19,16 +19,6 @@ const timeline = [
   },
 ];
 
-const StyledLine = styled.span`
-  position: absolute;
-  top: 60%;
-  left: 1rem;
-  margin-left: -1px;
-  height: 100%;
-  width: 0.125rem;
-  background: orange;
-`;
-
 const TimelineWrapper = styled.div`
   display: flow-root;
   border-radius: 8px;
@@ -115,12 +105,12 @@ export default function Timeline() {
                   </div>
                 )}
                 <ContentContainer>
-                  {event.id == 1 ? (
+                  {event.id === 1 ? (
                     <TimelineSingleCard>
                       <StraightArrowRight width="75%" />
                       <NotificationCard status="success" />
                     </TimelineSingleCard>
-                  ) : event.id == 3 ? (
+                  ) : event.id === 3 ? (
                     <TimelineDoubleCard />
                   ) : (
                     <TimelineDoubleCard type="refund" />
