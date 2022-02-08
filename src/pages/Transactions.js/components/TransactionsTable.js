@@ -33,16 +33,28 @@ width: 95%;
           }
       }
 
+
+      @media (max-width: 1024px) { 
+        tr{
+          
+        grid-template-columns:20% 12% 10% 12% 26% 14% 6%  ;}
+        
+        } 
+    }
       @media (max-width: 780px) { 
         tr{
-        grid-template-columns: 20% 10% 10% 15% 28% 20% 8% ;}
+          td:last-child{
+              padding-left: 0
+          }
+        grid-template-columns:20% 14% 10% 15% 32% 16% 8% ;}
         td{
-          padding: 0.5rem 1.3rem;
+         padding: 0.5rem 1.4rem ;
           img {
-            margin-right: 0.3rem;
+            margin-right: 0.2rem;
           } 
         } 
     }
+    
     @media (min-width: 1400px) {
         font-size: 0.9rem;
        width: 1200px
@@ -58,37 +70,24 @@ export default function TransactionsTable({ transactions }) {
       <tbody>
         {transactions.map((transaction) => (
           <tr key={transaction.id}>
-            <td
-              style={{ textAlign: "right" }}
-              className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-            >
+            <td style={{ textAlign: "right" }}>
               <strong>{transaction.amount}</strong> {transaction.currencyCode}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td>
               <StatusBox status={transaction.status} />
             </td>
-            <td
-              style={{ textAlign: "right" }}
-              className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-            >
+            <td style={{ textAlign: "right" }}>
               {transaction.amountRefunded > 0 ? "Refunded" : ""}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            <td>
               {getProcessorLogo(transaction.processor)}
               {getPaymentMethodLogo(getPaymentMethod(transaction))}
             </td>
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {transaction.orderId}
-            </td>
+            <td>{transaction.orderId}</td>
 
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {moment(transaction.date).format("MMM D YYYY, HH:MM")}
-            </td>
-            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <Link
-                to={`/payments/${transaction.id}`}
-                className="text-indigo-600 hover:text-indigo-900"
-              >
+            <td>{moment(transaction.date).format("MMM D YYYY, HH:MM")}</td>
+            <td>
+              <Link to={`/payments/${transaction.id}`}>
                 <RightOutlined />
               </Link>
             </td>

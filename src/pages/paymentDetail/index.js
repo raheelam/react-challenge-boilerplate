@@ -148,7 +148,21 @@ export const TransactionInfo = ({ paymentDetail }) => {
           </>
         )}
       </DetailCardContainer>
-      <DetailCardContainer grid="auto" align="top">
+      <DetailCardContainer
+        style={{ marginBottom: "0 " }}
+        grid="auto"
+        align="top"
+      >
+        <Detail
+          logo={getProcessorLogo(paymentDetail.processor)}
+          value="Risk Data"
+        ></Detail>
+      </DetailCardContainer>
+      <DetailCardContainer
+        style={{ marginBottom: "0 " }}
+        grid="auto"
+        align="top"
+      >
         <Detail logo={getLogo("3DS")} value=" 3DS" />
         <Detail
           title="Response"
