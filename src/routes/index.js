@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router";
+import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router';
 
-import primerLogo from "../assets/logo.png";
-import { checkAuthState, login } from "../api/authorization";
-import PaymentDetail, { CenteredDiv } from "../pages/paymentDetail";
-import Transactions from "../pages/Transactions.js";
+import primerLogo from '../assets/logo.png';
+import { checkAuthState, login } from '../api/authorization';
+import PaymentDetail, { CenteredDiv } from '../pages/paymentDetail';
+import Transactions from '../pages/Transactions.js';
 
 const AppRoutes = () => {
   const [authError, setAuthError] = useState(null);
@@ -13,12 +13,12 @@ const AppRoutes = () => {
     if (!checkAuthState()) {
       (async () => {
         let res = await login();
-        if (res.isAxiosError) {
+        if (res?.isAxiosError) {
           console.log(res.response.data.error.errorId);
           setAuthError(res.response.data.message);
           return;
         }
-        window.location.href = "/";
+        window.location.href = '/';
       })();
     }
   }, []);
@@ -40,7 +40,7 @@ const AppRoutes = () => {
                 height="100px"
                 src={primerLogo}
               />
-              <p style={{ fontSize: "5rem" }}> {authError || "Logged Out"}</p>
+              <p style={{ fontSize: '5rem' }}> {authError || 'Logged Out'}</p>
             </CenteredDiv>
           }
         />
