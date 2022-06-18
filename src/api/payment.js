@@ -40,18 +40,18 @@ export const getFilteredPayments = (filters) => {
 
   const temp = testData.filter((payment) =>
     filters.order_id !== ''
-      ? payment.orderId == filters.order_id
+      ? payment.orderId === filters.order_id
       : (filters.currency_code !== 'ALL'
-          ? payment.currencyCode == filters.currency_code
+          ? payment.currencyCode === filters.currency_code
           : true) &&
         (filters.payment_instrument_type !== 'ALL'
-          ? payment.paymentInstrument.paymentInstrumentType ==
+          ? payment.paymentInstrument.paymentInstrumentType ===
             filters.payment_instrument_type
           : true) &&
         (filters.processor !== 'ALL'
-          ? payment.processor == filters.processor
+          ? payment.processor === filters.processor
           : true) &&
-        (filters.status !== 'ALL' ? payment.status == filters.status : true)
+        (filters.status !== 'ALL' ? payment.status === filters.status : true)
   );
 
   return { data: temp };
