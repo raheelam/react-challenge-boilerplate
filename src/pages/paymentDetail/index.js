@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { useParams, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useParams, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
-import { getPaymentDetail } from "../../api/payment";
+import { getPaymentDetail } from '../../api/payment';
 import DetailCard, {
   Detail,
   DetailCardContainer,
-} from "./components/DetailCard";
-import Timeline from "./components/Timeline";
+} from './components/DetailCard';
+import Timeline from './components/Timeline';
 import {
   AmountWithLogo,
   getPaymentMethodLogo,
   getProcessorLogo,
   StatusBox,
   getLogo,
-} from "../../shared/utils/transactionHelpers";
-import { RefundButton } from "./components/RefundButton";
-import { lowerAllAndCapitalizeFirstLetter } from "../../shared/utils/stringHelpers";
+} from '../../shared/utils/transactionHelpers';
+import { RefundButton } from './components/RefundButton';
+import { lowerAllAndCapitalizeFirstLetter } from '../../shared/utils/stringHelpers';
 
 const Container = styled.div`
   width: 90vw;
@@ -78,7 +78,7 @@ export const CardInfo = ({ cardInfo }) => {
       <Detail title="Cardholder Name" value={cardholderName} />
       <Detail
         title="Card Number"
-        value={`${".".repeat(4)}  ${".".repeat(4)} ${".".repeat(
+        value={`${'.'.repeat(4)}  ${'.'.repeat(4)} ${'.'.repeat(
           4
         )} ${last4Digits}`}
       />
@@ -112,12 +112,12 @@ export const TransactionInfo = ({ paymentDetail }) => {
   const network =
     paymentDetail?.paymentInstrument?.paymentInstrumentData?.binData?.network;
   const type =
-    paymentDetail?.paymentInstrument?.paymentInstrumentType.split("_")[1];
+    paymentDetail?.paymentInstrument?.paymentInstrumentType.split('_')[1];
 
   return (
     <TransactionInfoContainer>
       <DetailCardContainer
-        style={{ marginBottom: "0 " }}
+        style={{ marginBottom: '0 ' }}
         grid="auto"
         align="top"
       >
@@ -132,13 +132,13 @@ export const TransactionInfo = ({ paymentDetail }) => {
         )}
       </DetailCardContainer>
       <DetailCardContainer
-        style={{ marginBottom: "0 " }}
+        style={{ marginBottom: '0 ' }}
         grid="auto"
         align="top"
       >
         <Detail logo={getPaymentMethodLogo(network)} value="Payment Method">
           {!cardInfo.cardholderName && (
-            <p style={{ marginTop: "0.5rem" }}>{type}</p>
+            <p style={{ marginTop: '0.5rem' }}>{type}</p>
           )}
         </Detail>
 
@@ -149,7 +149,7 @@ export const TransactionInfo = ({ paymentDetail }) => {
         )}
       </DetailCardContainer>
       <DetailCardContainer
-        style={{ marginBottom: "0 " }}
+        style={{ marginBottom: '0 ' }}
         grid="auto"
         align="top"
       >
@@ -159,11 +159,11 @@ export const TransactionInfo = ({ paymentDetail }) => {
         ></Detail>
       </DetailCardContainer>
       <DetailCardContainer
-        style={{ marginBottom: "0 " }}
+        style={{ marginBottom: '0 ' }}
         grid="auto"
         align="top"
       >
-        <Detail logo={getLogo("3DS")} value=" 3DS" />
+        <Detail logo={getLogo('3DS')} value=" 3DS" />
         <Detail
           title="Response"
           value={
@@ -171,7 +171,7 @@ export const TransactionInfo = ({ paymentDetail }) => {
               color="#505050"
               status={
                 paymentDetail.threeDSecureAuthentication?.responseCode ||
-                "Not Performed"
+                'Not Performed'
               }
             />
           }
@@ -188,24 +188,25 @@ function PaymentDetail(props) {
   const [paymentDetail, setPaymentDetail] = useState(null);
 
   useEffect(() => {
-    getPaymentDetail(id).then((data) => {
+    (async () => {
+      const data = await getPaymentDetail(id);
       setPaymentDetail(data);
-    });
+    })();
   }, [id]);
 
   const getMessage = () => {
     if (paymentDetail == null) {
-      return "loading...";
+      return 'loading...';
     }
     if (!paymentDetail.id) {
-      return "No record found";
+      return 'No record found';
     }
   };
   return (
     <Container>
       <button
         onClick={() => {
-          navigate("/");
+          navigate('/');
         }}
       >
         <ArrowLeftOutlined width="50px" /> transactions
@@ -218,7 +219,7 @@ function PaymentDetail(props) {
                 <AmountWithLogo
                   currency={paymentDetail.currencyCode}
                   amount={paymentDetail.amount.toFixed(2)}
-                  size={"2.5rem"}
+                  size={'2.5rem'}
                 />
               </BigAmount>
             </Detail>

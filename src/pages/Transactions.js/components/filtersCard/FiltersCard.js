@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import debounce from "lodash.debounce";
-import styled from "styled-components";
+import debounce from 'lodash.debounce';
+import styled from 'styled-components';
 
-import { getFilteredPayments } from "../../../../api/payment";
+import { getFilteredPayments } from '../../../../api/payment';
 import {
   paymentMethods,
   currencyCodes,
   status,
   processors,
   initialFilterValues,
-} from "./utils/filtersOptions";
+} from './utils/filtersOptions';
 
 const FilterCard = styled.div`
   display: flex;
@@ -93,11 +93,14 @@ function Filters({ setTransactions, setIsLoading }) {
       order_id: filterValues.referenceId,
     };
     setIsLoading(true);
-    getFilteredPayments(matchedValues).then(({ data, cancelPrevQuery }) => {
+    (async () => {
+      const { data, cancelPrevQuery } = await getFilteredPayments(
+        matchedValues
+      );
       if (cancelPrevQuery) return;
       setTransactions(data);
       setIsLoading(false);
-    });
+    })();
   };
 
   const handleOptionChange = (event, optionName) => {
@@ -105,7 +108,7 @@ function Filters({ setTransactions, setIsLoading }) {
       ...filterValues,
       [optionName]: event.target.value,
     }));
-    if (optionName === "referenceId") {
+    if (optionName === 'referenceId') {
       debounce(
         () =>
           getPayments({ ...filterValues, [optionName]: event.target.value }),
@@ -124,7 +127,7 @@ function Filters({ setTransactions, setIsLoading }) {
     <FilterCard>
       <div className="form-group">
         <input
-          onChange={(e) => handleOptionChange(e, "referenceId")}
+          onChange={(e) => handleOptionChange(e, 'referenceId')}
           value={filterValues.referenceId}
           autoFocus={true}
           placeholder="Search by your reference"
@@ -133,25 +136,25 @@ function Filters({ setTransactions, setIsLoading }) {
       <CustomLine />
       <CustomSelect
         label="Processor"
-        onChange={(e) => handleOptionChange(e, "processor")}
+        onChange={(e) => handleOptionChange(e, 'processor')}
         value={filterValues.processor}
         options={processors}
       />
       <CustomSelect
         label="Payment method"
-        onChange={(e) => handleOptionChange(e, "paymentMethod")}
+        onChange={(e) => handleOptionChange(e, 'paymentMethod')}
         value={filterValues.paymentMethod}
         options={paymentMethods}
       />
       <CustomSelect
         label="Current status"
-        onChange={(e) => handleOptionChange(e, "currentStatus")}
+        onChange={(e) => handleOptionChange(e, 'currentStatus')}
         value={filterValues.currentStatus}
         options={status}
       />
       <CustomSelect
         label="Currency"
-        onChange={(e) => handleOptionChange(e, "currencyCode")}
+        onChange={(e) => handleOptionChange(e, 'currencyCode')}
         value={filterValues.currencyCode}
         options={currencyCodes}
       />
