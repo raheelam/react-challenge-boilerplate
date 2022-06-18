@@ -1,9 +1,9 @@
-import primer from './axiosSetup';
+//import primer from './axiosSetup';
 import axios from 'axios';
 import { login } from './authorization';
-import { testData } from '../testData';
+import { data as testData } from '../testData';
 
-const generateQuery = (obj) => {
+export const generateQuery = (obj) => {
   return Object.keys(obj)
     .filter((key) => obj[key] !== 'ALL' && obj[key])
     .map((key, index) => {
@@ -25,7 +25,6 @@ export const getAllPayments = () => {
   //     return res.data;
   //   })
   //   .catch((err) => {
-
   //     console.log(err.response.data);
   //     if (checkIsAuthError(err)) return reAuthorize();
   //     return err;
